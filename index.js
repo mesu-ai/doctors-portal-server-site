@@ -2,9 +2,10 @@ const express=require('express');
 const app=express();
 const cors=require('cors');
 require('dotenv').config()
-const { MongoClient, ObjectID } = require('mongodb');
+const { MongoClient} = require('mongodb');
 const ObjectId=require('mongodb').ObjectId;
 const admin = require("firebase-admin");
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 
@@ -59,10 +60,10 @@ async function run() {
             const cursor = appointmentsCollection.find(query);
             const appointments = await cursor.toArray();
             res.json(appointments);
-        })
+        });
 
         // get Selected appointment
-        app.post('/appointments/:id', async (req, res) => {
+        app.get('/appointments/:id', async (req, res) => {
             const id = req.params.id;
             const query={_id:ObjectId(id)};
             const result = await appointmentsCollection.findOne(query);
