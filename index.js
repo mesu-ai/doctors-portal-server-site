@@ -67,7 +67,7 @@ async function run() {
             const id = req.params.id;
             const query={_id:ObjectId(id)};
             const result = await appointmentsCollection.findOne(query);
-            res.json(result)
+            res.send(result)
         });
 
         // post new appointment
